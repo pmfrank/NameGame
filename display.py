@@ -1,11 +1,20 @@
-import pygame
+import pygame as pg
 import time
 
-def display():
+def display(caption, size, fill):
 
-    pygame.init()
-    screen = pygame.display.set_mode((pygame.display.Info().current_w, pygame.display.Info().current_h), pygame.FULLSCREEN)
+    pg.init()
+    pg.display.set_caption(caption)
+    screen = pg.display.set_mode(size, pg.FULLSCREEN)
+    screen.fill(fill)
+    pg.display.flip()
 
-    time.sleep(10)
+    return screen
 
-display()
+def change_bgcolor(surface, fill):
+
+    surface.fill(fill)
+
+    pg.display.flip()
+
+    return surface
