@@ -36,9 +36,9 @@ for x in range(0, 16):
     with sqlite3.connect('family.db') as conn:
         conn.row_factory = dict_factory
         c = conn.cursor()
-        rowid = randrange(16)+1
+        rowid = randrange(17)+1
         while rowid in picked:
-            rowid = randrange(16) + 1
+            rowid = randrange(17) + 1
         picked.append(rowid)
         print(rowid)
         c.execute(f'SELECT * FROM family_info WHERE rowid = {rowid}')
