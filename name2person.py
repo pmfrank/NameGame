@@ -2,20 +2,18 @@
 This game will allow the player to pick wich person goes with the name given
 """
 
+# Clickable images problem solved with this page: https://stackoverflow.com/questions/42577197/pygame-how-to-correctly-use-get-rect
+# Shout out to user banana-galaxy on TechWithTim Discord server for finding it
+
 import sqlite3
 import pygame as pg
-from variable import color
+from variable import color, name_var_dict
 from pyautogui import size
 from speech import speak
 from display import display
-from random import randrange, choice
-
-def dict_factory(cursor, row):
-    d = {}
-    for idx, col in enumerate(cursor.description):
-        d[col[0]] = row[idx]
-    return d
-
+from random import randrange
+from database import get_database
+import copy
 
 pg.init()
 
@@ -26,16 +24,11 @@ width = size()[0]
 height = size()[1]
 clock = pg.time.Clock()
 
-with sqlite3.connect('family.db') as conn:
-    conn.row_factory = dict_factory
-    c = conn.cursor()
-    c.execute('select rowid, name, gender, relation, image from family_info')
-    data = c.fetchall()
+data = get_database('family.db','family_info')
+lastans = 0
+var_dict = {}
+var_dict = copy.deepcopy(name_var_dict)
 
-
-image1 = pg.image.load('img/amy.JPG')
-image2 = pg.image.load('img/daniel.JPG')
-image3 = pg.image.load('img/braydon.JPG')
 
 def showimg(img, x, y):
 
@@ -43,14 +36,7 @@ def showimg(img, x, y):
     img_rect.centerx = x
     img_rect.centery = y
     screen.blit(img, img_rect)
-
-picked = list()
-person = list()
-
-photo1 = False
-photo2 = False
-photo3 = False
-selected = False
+    return img
 
 while True:
 
@@ -60,66 +46,47 @@ while True:
             exit()
         if event.type == pg.MOUSEBUTTONDOWN:
             x,y = event.pos
-            if image1.get_rect().collidepoint(x, y):
+            if picture.get_rect(center=location).collidepoint(x, y):
                 speak('That is the correct answer!')
-                picked = []
-                person = []
-                photo1 = False
-                photo2 = False
-                photo3 = False
-                selected = False
+                var_dict = copy.deepcopy(name_var_dict)
+            else:
+                speak('Sorry, try again!')
+
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:
                 exit()
     screen.fill(bgcolor)
 
-    while not photo1:
-        rowid = randrange(5)+1
-        while rowid in picked:
+    while len(var_dict['person']) < 3:
+        rowid = randrange(5) + 1
+        if rowid == lastans:
+            var_dict['picked'].append(rowid)
+        while rowid in var_dict['picked']:
             rowid = randrange(5) + 1
-        picked.append(rowid)
+        var_dict['picked'].append(rowid)
         for entry in data:
             if entry['rowid'] == rowid:
-                person.append(entry)
-                image1 = pg.image.load(f'img/{person[0]["image"]}')
-                img_w, img_h = image1.get_size()
-                image1 = pg.transform.scale(image1,(int(img_w*.25),int(img_h*.25)))
-        photo1 = True
-    while not photo2:
-        rowid = randrange(5)+1
-        while rowid in picked:
-            rowid = randrange(5) + 1
-        picked.append(rowid)
-        for entry in data:
-            if entry['rowid'] == rowid:
-                person.append(entry)
-                image2 = pg.image.load(f'img/{person[1]["image"]}')
-                img_w, img_h = image2.get_size()
-                image2 = pg.transform.scale(image2,(int(img_w*.25),int(img_h*.25)))
-        photo2 = True
-    while not photo3:
-        rowid = randrange(5)+1
-        while rowid in picked:
-            rowid = randrange(5) + 1
-        picked.append(rowid)
-        for entry in data:
-            if entry['rowid'] == rowid:
-                person.append(entry)
-                image3 = pg.image.load(f'img/{person[2]["image"]}')
-                img_w, img_h = image3.get_size()
-                image3 = pg.transform.scale(image3,(int(img_w*.25),int(img_h*.25)))
-        photo3 = True
-    showimg(image1, width // 4, height // 4)
-    showimg(image2, width // 2, height // 4)
-    showimg(image3, (3*width) // 4, height // 4)
-
-    while not selected:
-        ans = randrange(3)
-        answer = person[ans]
-        print(answer)
-        selected = True
-
+                var_dict['person'].append(entry)
+                mem = var_dict['person'][int(len(var_dict['person']) - 1)]
+                image = pg.image.load(f'img/{mem["image"]}')
+                img_w, img_h = image.get_size()
+                image = pg.transform.scale(image,(int(img_w*.25),int(img_h*.25)))
+                var_dict['images'].append(showimg(image, (len(var_dict['person'])*width) // 4, height // 4))
+                var_dict['center'].append((len(var_dict['person'])*width//4, height//4))
+    for x,img in enumerate(var_dict['images']):
+        showimg(img, ((x+1)*width)//4, height//4)
+    
     pg.display.flip()
     pg.display.update()
 
+    while not var_dict['selected']:
+        ans = randrange(3)
+        answer = var_dict['person'][ans]
+        picture = var_dict['images'][ans]
+        location = var_dict['center'][ans]
+        print(answer)
+        speak(f'which one is {answer["name"]}')
+        lastans = answer['rowid']
+        var_dict['selected'] = True
+    
     clock.tick(30)

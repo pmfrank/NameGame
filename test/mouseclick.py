@@ -1,7 +1,7 @@
 import pygame as pg
 pg.init()
 
-screen = pg.display.set_caption('This is really pissing me off')
+
 pg.display.set_caption('This is really pissing me off')
 screen = pg.display.set_mode((1000,1000))
 screen.fill((255,255,255))
@@ -20,7 +20,7 @@ while True:
             exit()
         if event.type == pg.MOUSEBUTTONDOWN:
             x,y = event.pos
-            if pic.get_rect().collidepoint(x, y):
+            if pic.get_rect(topleft=(100,30)).collidepoint(x, y):
                 print('Clicked on image')
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_ESCAPE:

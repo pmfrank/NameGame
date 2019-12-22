@@ -16,3 +16,11 @@ color = {
 validChars = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./"
 shiftChars = '~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?'
 
+# Name match game variables
+name_var_dict = {
+    'picked' : list(),
+    'person' : list(),
+    'images' : list(),
+    'center' : list(),
+    'selected' : False
+}
