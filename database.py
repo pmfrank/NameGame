@@ -1,3 +1,7 @@
+# dict_factory function found at: https://stackoverflow.com/questions/3300464/how-can-i-get-dict-from-sqlite-query
+# Originally posted by Alex Martelli on Stack Overflow
+# Function is used to covert sqlite3 queary results into a list of dictionaries
+
 import sqlite3
 
 def dict_factory(cursor, row):
