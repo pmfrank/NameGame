@@ -5,7 +5,7 @@ A game to teach my daughter the names of her familiy members and their relations
 ### database.py
 This scirpt interacts with the database and table passed in the get_database() function and returns all info in the database
 **To Do**
-- [ ] Send table fields as argument instead of having them hard coded
+- [X] Send table fields as argument instead of having them hard coded
 ### diplay.py
 This script is used to create the maine PyGame surface based on the caption, dimentions, and backgroup color.
 **To Do**
