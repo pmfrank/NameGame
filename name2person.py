@@ -3,7 +3,7 @@ This game will allow the player to pick wich person goes with the name given
 """
 
 # Clickable images problem solved with this page: https://stackoverflow.com/questions/42577197/pygame-how-to-correctly-use-get-rect
-# Shout out to user banana-galaxy on TechWithTim Discord server for finding it
+# Shout out to user banana-galaxy on TechWithTim Discord server for finding itc
 
 import sqlite3
 import pygame as pg
@@ -53,16 +53,16 @@ while True:
                 speak('Sorry, try again!')
 
         if event.type == pg.KEYDOWN:
-            if event.key == pg.K_ESCAPE:
+            if event.key == pg.K_g:
                 exit()
     screen.fill(bgcolor)
 
     while len(var_dict['person']) < 3:
-        rowid = randrange(5) + 1
+        rowid = randrange(len(data)) + 1
         if rowid == lastans:
             var_dict['picked'].append(rowid)
         while rowid in var_dict['picked']:
-            rowid = randrange(5) + 1
+            rowid = randrange(len(data)) + 1
         var_dict['picked'].append(rowid)
         for entry in data:
             if entry['rowid'] == rowid:
