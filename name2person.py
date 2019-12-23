@@ -3,7 +3,7 @@ This game will allow the player to pick wich person goes with the name given
 """
 
 # Clickable images problem solved with this page: https://stackoverflow.com/questions/42577197/pygame-how-to-correctly-use-get-rect
-# Shout out to user banana-galaxy on TechWithTim Discord server for finding itc
+# Shout out to user banana-galaxy on TechWithTim Discord server for finding it
 
 import sqlite3
 import pygame as pg
@@ -24,7 +24,7 @@ width = size()[0]
 height = size()[1]
 clock = pg.time.Clock()
 
-data = get_database('family.db','family_info')
+data = get_database('family.db','family_info',('rowid','name','gender','relation','image'))
 lastans = 0
 var_dict = {}
 var_dict = copy.deepcopy(name_var_dict)
