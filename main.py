@@ -7,6 +7,7 @@ from textbox import TextBox as tb
 import pygame as pg
 
 # I'm makeing a chage to the code. I'll show what changes then I'll send it to GitHub, the I'll explain my commands
+#This will be the new commit. I meant git checkout -b branch. not git -chechout -b branch
 
 bgcolor = color['white']
 screen = display('Family Name Game', size(), bgcolor)
