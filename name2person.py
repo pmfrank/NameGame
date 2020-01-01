@@ -49,8 +49,6 @@ while True:
             if picture.get_rect(center=location).collidepoint(x, y):
                 speak('That is the correct answer!')
                 var_dict = copy.deepcopy(name_var_dict)
-            else:
-                speak('Sorry, try again!')
 
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_g:
@@ -70,7 +68,7 @@ while True:
                 mem = var_dict['person'][int(len(var_dict['person']) - 1)]
                 image = pg.image.load(f'img/{mem["image"]}')
                 img_w, img_h = image.get_size()
-                image = pg.transform.scale(image,(int(img_w*.25),int(img_h*.25)))
+                image = pg.transform.scale(image,(int(img_w*.5),int(img_h*.5)))
                 var_dict['images'].append(showimg(image, (len(var_dict['person'])*width) // 4, height // 4))
                 var_dict['center'].append((len(var_dict['person'])*width//4, height//4))
     for x,img in enumerate(var_dict['images']):
