@@ -13,6 +13,7 @@ from speech import speak
 from display import display
 from random import randrange
 from database import get_database
+from helper_functions import show_img
 import copy
 
 pg.init()
@@ -20,8 +21,7 @@ pg.init()
 bgcolor = color['white']
 screen = display("Name To Person", size(), bgcolor)
 
-width = size()[0]
-height = size()[1]
+width, height = size()
 clock = pg.time.Clock()
 
 data = get_database('family.db','family_info',('rowid','name','gender','relation','image'))
@@ -69,7 +69,7 @@ while True:
                 image = pg.image.load(f'img/{mem["image"]}')
                 img_w, img_h = image.get_size()
                 image = pg.transform.scale(image,(int(img_w*.5),int(img_h*.5)))
-                var_dict['images'].append(showimg(image, (len(var_dict['person'])*width) // 4, height // 4))
+                var_dict['images'].append(show_img(screen, image, (len(var_dict['person'])*width) // 4, height // 4))
                 var_dict['center'].append((len(var_dict['person'])*width//4, height//4))
     for x,img in enumerate(var_dict['images']):
         showimg(img, ((x+1)*width)//4, height//4)
