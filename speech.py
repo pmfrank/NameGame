@@ -8,7 +8,7 @@ def speak(text):
     This function will handle all the spoken lines for the interface
     """
 
-    tts = gTTS(text=text, lang='en-us')
+    tts = gTTS(text=incoming, lang='en-us')
 
     filename = 'voice.mp3'
     tts.save(filename)
