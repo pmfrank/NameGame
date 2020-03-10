@@ -5,21 +5,19 @@ This game will allow the player to pick wich person goes with the name given
 # Clickable images problem solved with this page: https://stackoverflow.com/questions/42577197/pygame-how-to-correctly-use-get-rect
 # Shout out to user banana-galaxy on TechWithTim Discord server for finding it
 
-import sqlite3
-import pygame as pg
+
 from variable import color, name_var_dict
+from helper_functions import display, get_database, show_img, speak
+import pygame as pg
 from pyautogui import size
-from speech import speak
-from display import display
 from random import randrange
-from database import get_database
-from helper_functions import show_img
+
 import copy
 
 pg.init()
 
 bgcolor = color['white']
-screen = display("Name To Person", size(), bgcolor)
+screen = display("Name To Person", size(), bgcolor, fullscreen=True)
 
 width, height = size()
 clock = pg.time.Clock()
@@ -28,15 +26,6 @@ data = get_database('family.db','family_info',('rowid','name','gender','relation
 lastans = 0
 var_dict = {}
 var_dict = copy.deepcopy(name_var_dict)
-
-
-def showimg(img, x, y):
-
-    img_rect = img.get_rect()
-    img_rect.centerx = x
-    img_rect.centery = y
-    screen.blit(img, img_rect)
-    return img
 
 while True:
 
@@ -72,7 +61,7 @@ while True:
                 var_dict['images'].append(show_img(screen, image, (len(var_dict['person'])*width) // 4, height // 4))
                 var_dict['center'].append((len(var_dict['person'])*width//4, height//4))
     for x,img in enumerate(var_dict['images']):
-        showimg(img, ((x+1)*width)//4, height//4)
+        show_img(screen, img, ((x+1)*width)//4, height//4)
     
     pg.display.flip()
     pg.display.update()

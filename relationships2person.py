@@ -1,9 +1,7 @@
 from variable import color, name_var_dict
-from database import get_database
+from helper_functions import get_database, speak, display, show_img
 from random import shuffle, choice
-from speech import speak
 import pygame as pg
-from display import display
 from pyautogui import size
 
 pg.init()
@@ -35,20 +33,20 @@ for i in range(2):
 
 print(type(guesses))
 
-while True:
+# while True:
 
-    events = pg.event.get()
-    for event in events:
-        if event.type == pg.QUIT:
-            exit()
-        if event.type == pg.MOUSEBUTTONDOWN:
-            x,y = event.pos
-            if picture.get_rect(center=location).collidepoint(x, y):
-                speak('That is the correct answer!')
-                var_dict = copy.deepcopy(name_var_dict)
+#     events = pg.event.get()
+#     for event in events:
+#         if event.type == pg.QUIT:
+#             exit()
+#         if event.type == pg.MOUSEBUTTONDOWN:
+#             x,y = event.pos
+#             if picture.get_rect(center=location).collidepoint(x, y):
+#                 speak('That is the correct answer!')
+#                 var_dict = copy.deepcopy(name_var_dict)
 
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_g:
-                exit()
-    screen.fill(bgcolor)
+#         if event.type == pg.KEYDOWN:
+#             if event.key == pg.K_g:
+#                 exit()
+#     screen.fill(bgcolor)
 
