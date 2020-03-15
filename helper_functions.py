@@ -7,6 +7,7 @@ import pygame as pg
 from gtts import gTTS
 import sqlite3
 import time
+from variable import *
 
 def display(caption, size, fill, fullscreen=False):
 
@@ -59,7 +60,7 @@ def show_img(screen, img, x, y):
     screen.blit(img, img_rect)
     return img
 
-def speak(text):
+def speak(text, screen):
 
     """
     This function will handle all the spoken lines for the interface
@@ -70,10 +71,12 @@ def speak(text):
     filename = 'voice.mp3'
     tts.save(filename)
 
+    change_bgcolor(screen, color['cyan'])
     pg.mixer.init()
     pg.mixer.music.load(filename)
     pg.mixer.music.play()
     while pg.mixer.music.get_busy() == True:
         continue
+    change_bgcolor(screen, color['white'])
 
     os.remove(filename)
