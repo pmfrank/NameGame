@@ -3,6 +3,7 @@ from helper_functions import get_database, speak, display, show_img
 from random import shuffle, choice
 import pygame as pg
 from pyautogui import size
+from classes import Button
 
 pg.init()
 
@@ -46,21 +47,19 @@ while True:
             exit()
         if event.type == pg.MOUSEBUTTONDOWN:
             x,y = event.pos
-            print(x,y)
-            print(ans_rect.center)
-            print(ans_rect.topleft, ans_rect.bottomright)
-            if ans_rect.collidepoint(x,y):
-                print('That is the correct answer!')
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_g:
-                    exit()
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_g:
+                exit()
     screen.fill(bgcolor)
 
     for x, guess in enumerate(guesses):
-        text = font.render(guess, True, color['white'], color['magenta'])
-        screen.blit(text, (width//1.3-text.get_width()//2, height//height_div[x]-text.get_height()//2))
-        if guess == ans:
-            ans_rect = text.get_rect(center=(width//1.3-text.get_width()//2, height//height_div[x]-text.get_height()//2))
+        locals()[guess] = Button(color['magenta'],(width//1.3),(height//height_div[x]),300,75, text=guess)
+        locals()[guess].draw(screen)
+
+        # text = font.render(guess, True, color['white'], color['magenta'])
+        # screen.blit(text, (width//1.3-text.get_width()//2, height//height_div[x]-text.get_height()//2))
+        # if guess == ans:
+        #     ans_rect = text.get_rect(center=(width//1.3-text.get_width()//2, height//height_div[x]-text.get_height()//2))
 
     pg.display.flip()
 
