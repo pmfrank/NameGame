@@ -7,7 +7,7 @@ from pyautogui import size
 pg.init()
 
 bgcolor = color['white']
-screen = display("Name To Person", size(), bgcolor)
+screen = display("Relationship To Person", size(), bgcolor)
 
 width, height = size()
 clock = pg.time.Clock()
@@ -31,22 +31,51 @@ for i in range(2):
         select = choice(relations)
     guesses.append(select)
 
-print(type(guesses))
+shuffle(guesses)
+print(guesses)
 
-# while True:
+height_div = [4,2,1.3]
 
-#     events = pg.event.get()
-#     for event in events:
-#         if event.type == pg.QUIT:
-#             exit()
-#         if event.type == pg.MOUSEBUTTONDOWN:
-#             x,y = event.pos
-#             if picture.get_rect(center=location).collidepoint(x, y):
-#                 speak('That is the correct answer!')
-#                 var_dict = copy.deepcopy(name_var_dict)
+font = pg.font.SysFont('quicksandmedium', 80)
 
-#         if event.type == pg.KEYDOWN:
-#             if event.key == pg.K_g:
-#                 exit()
-#     screen.fill(bgcolor)
+while True:
 
+    events = pg.event.get()
+    for event in events:
+        if event.type == pg.QUIT:
+            exit()
+        if event.type == pg.MOUSEBUTTONDOWN:
+            x,y = event.pos
+            print(x,y)
+            print(ans_rect.center)
+            print(ans_rect.topleft, ans_rect.bottomright)
+            if ans_rect.collidepoint(x,y):
+                print('That is the correct answer!')
+            # x,y = event.pos
+            # if ans_rect(center=rect_center).collidepoint(x,y):
+            #     print('That is the correct answer!')
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_g:
+                exit()
+    screen.fill(bgcolor)
+
+    for x, guess in enumerate(guesses):
+        text = font.render(guess, True, color['white'], color['magenta'])
+        screen.blit(text, (width//1.3-text.get_width()//2, height//height_div[x]-text.get_height()//2))
+        if guess == ans:
+            ans_rect = text.get_rect(center=(width//1.3-text.get_width()//2, height//height_div[x]-text.get_height()//2))
+            # print(dir(ans_rect))
+            # rect_center = (ans_rect.bottom)
+            # print(ans_rect.size)
+            # print(ans_rect.bottomright)
+
+    # text = font.render(ans, False, color['white'], color['magenta'])
+    # screen.blit(text, (width//1.3-text.get_width(), height//2-text.get_height()//2))
+    # for x,guess in enumerate(guesses):
+    #     n = x+1
+    #     locals()[f'guess{str(n)}'] = font.render(ans, False, color['white'], color['cyan'])
+    #     print(locals()[f'guess{str(n)}'])
+    #     screen.blit(locals()[f'guess{str(n)}'], (width//n-locals()[f'guess{str(n)}'].get_width()//2, height//n-locals()[f'guess{str(n)}'].get_height()//2))
+    pg.display.flip()
+
+print(ans_rect)
