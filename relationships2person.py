@@ -51,12 +51,9 @@ while True:
             print(ans_rect.topleft, ans_rect.bottomright)
             if ans_rect.collidepoint(x,y):
                 print('That is the correct answer!')
-            # x,y = event.pos
-            # if ans_rect(center=rect_center).collidepoint(x,y):
-            #     print('That is the correct answer!')
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_g:
-                exit()
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_g:
+                    exit()
     screen.fill(bgcolor)
 
     for x, guess in enumerate(guesses):
@@ -64,18 +61,7 @@ while True:
         screen.blit(text, (width//1.3-text.get_width()//2, height//height_div[x]-text.get_height()//2))
         if guess == ans:
             ans_rect = text.get_rect(center=(width//1.3-text.get_width()//2, height//height_div[x]-text.get_height()//2))
-            # print(dir(ans_rect))
-            # rect_center = (ans_rect.bottom)
-            # print(ans_rect.size)
-            # print(ans_rect.bottomright)
 
-    # text = font.render(ans, False, color['white'], color['magenta'])
-    # screen.blit(text, (width//1.3-text.get_width(), height//2-text.get_height()//2))
-    # for x,guess in enumerate(guesses):
-    #     n = x+1
-    #     locals()[f'guess{str(n)}'] = font.render(ans, False, color['white'], color['cyan'])
-    #     print(locals()[f'guess{str(n)}'])
-    #     screen.blit(locals()[f'guess{str(n)}'], (width//n-locals()[f'guess{str(n)}'].get_width()//2, height//n-locals()[f'guess{str(n)}'].get_height()//2))
     pg.display.flip()
 
 print(ans_rect)
