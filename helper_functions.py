@@ -7,7 +7,6 @@ import pygame as pg
 from gtts import gTTS
 import sqlite3
 import time
-from variable import *
 
 def display(caption, size, fill, fullscreen=False):
 
@@ -71,12 +70,10 @@ def speak(text, screen):
     filename = 'voice.mp3'
     tts.save(filename)
 
-    change_bgcolor(screen, color['cyan'])
     pg.mixer.init()
     pg.mixer.music.load(filename)
     pg.mixer.music.play()
     while pg.mixer.music.get_busy() == True:
         continue
-    change_bgcolor(screen, color['white'])
 
     os.remove(filename)

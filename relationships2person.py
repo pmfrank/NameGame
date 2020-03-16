@@ -21,6 +21,7 @@ lastans = 'Filler'
 
 while True:
     correct = False
+    spoken = False
     shuffle(data)
 
     person = data[0]
@@ -53,7 +54,7 @@ while True:
             if event.type == pg.MOUSEBUTTONDOWN:
                 pos = pg.mouse.get_pos()
                 if locals()[ans].is_over(pos):
-                    speak('That is the correct answer', screen)
+                    speak('That is the correct answer')
                     correct = True
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_g:
@@ -61,7 +62,7 @@ while True:
         screen.fill(bgcolor)
         font = pg.font.SysFont('quicksandmedium', 60)
         text = font.render(f'This is {person["name"].capitalize()}. {"He" if person["gender"]=="boy" else "She"} is your... ', 1, color['black'])
-        speak(f'This is {person["name"].capitalize()}. {"He" if person["gender"]=="boy" else "She"} is your... ', screen)
+        
         screen.blit(text, (width//10,height//10))
 
         show_img(screen, image, width//4, height//2)
@@ -69,4 +70,7 @@ while True:
             locals()[guess] = Button(color['magenta'],(width//1.3),(height//height_div[x]),300,75, text=guess)
             locals()[guess].draw(screen)
         pg.display.flip()
+        while not spoken:
+            speak(f'This is {person["name"].capitalize()}. {"He" if person["gender"]=="boy" else "She"} is your... ')
+            spoken = True
         lastans = ans
