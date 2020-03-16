@@ -17,7 +17,7 @@ import copy
 pg.init()
 
 bgcolor = color['white']
-screen = display("Name To Person", size(), bgcolor, fullscreen=True)
+screen = display("Name To Person", size(), bgcolor)
 
 width, height = size()
 clock = pg.time.Clock()
@@ -26,8 +26,9 @@ data = get_database('family.db','family_info',('rowid','name','gender','relation
 lastans = 0
 var_dict = {}
 var_dict = copy.deepcopy(name_var_dict)
+playing = True
 
-while True:
+while playing:
 
     events = pg.event.get()
     for event in events:
@@ -41,7 +42,7 @@ while True:
 
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_g:
-                exit()
+                playing = False
     screen.fill(bgcolor)
 
     while len(var_dict['person']) < 3:
@@ -69,6 +70,8 @@ while True:
     while not var_dict['selected']:
         ans = randrange(3)
         answer = var_dict['person'][ans]
+
+        pg.display.flip()
         picture = var_dict['images'][ans]
         location = var_dict['center'][ans]
         print(answer)

@@ -59,7 +59,7 @@ def show_img(screen, img, x, y):
     screen.blit(img, img_rect)
     return img
 
-def speak(text, screen):
+def speak(text):
 
     """
     This function will handle all the spoken lines for the interface

@@ -18,8 +18,9 @@ data = get_database('family.db','family_info',('rowid','name','gender','relation
 relations = ['aunt','uncle','cousin','grandma','grandpa','sister','mom','dad']
 
 lastans = 'Filler'
+playing = True
 
-while True:
+while playing:
     correct = False
     spoken = False
     shuffle(data)
@@ -45,7 +46,7 @@ while True:
 
     font = pg.font.SysFont('quicksandmedium', 80)
 
-    while not correct:
+    while not correct and playing:
 
         events = pg.event.get()
         for event in events:
@@ -58,7 +59,7 @@ while True:
                     correct = True
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_g:
-                    exit()
+                    playing = False
         screen.fill(bgcolor)
         font = pg.font.SysFont('quicksandmedium', 60)
         text = font.render(f'This is {person["name"].capitalize()}. {"He" if person["gender"]=="boy" else "She"} is your... ', 1, color['black'])
