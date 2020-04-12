@@ -12,14 +12,12 @@ A game to teach my daughter the names of her familiy members and their relations
 - [ ] Add missing family members
 ### helper_functions.py
 - All of the custom functions that are shared by the various game scripts including:
-|Function | Purpose|
-|---------|---------|
-|display()|Handles the PyGame surface and support for full screen|
-|change_bgcolor()|Used to change the background color of the current surface|
-|_dict_factory()|Helper function for get_database that returns the data as a dictionary|
-|get_database|Used to pull specific fileds from a given table and database|
-|show_img()| Function to show a person's picture to the provided surface|
-|speak()|Function handles all the spoken lines for the interface|
+  * display() - Handles the PyGame surface and support for full screen
+  * change_bgcolor() - Used to change the background color of the current surface
+  * _dict_factory() - Helper function for get_database that returns the data as a dictionary
+  * get_database - Used to pull specific fileds from a given table and database
+  * show_img() - Function to show a person's picture to the provided surface
+  * speak() - Function handles all the spoken lines for the interface
 ### mainmenu.py
 - Script that uses buttons to allow selection of game to play
 ### name2person.py
