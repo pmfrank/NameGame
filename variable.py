@@ -12,10 +12,6 @@ color = {
     'cyan' : [0,255,255]
 }
 
-# Text box variables to validate entries
-validChars = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./"
-shiftChars = '~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:"ZXCVBNM<>?'
-
 # Name match game variables
 name_var_dict = {
     'picked' : list(),
