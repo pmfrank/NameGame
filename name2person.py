@@ -39,7 +39,7 @@ def main():
             if event.type == pg.MOUSEBUTTONDOWN:
                 x,y = event.pos
                 if picture.get_rect(center=location).collidepoint(x, y):
-                    speak('That is the correct answer!')
+                    speak('That is the correct answer')
                     var_dict = copy.deepcopy(name_var_dict)
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_g:
@@ -72,7 +72,6 @@ def main():
         
         quit_button.draw(screen)
         pg.display.flip()
-        pg.display.update()
 
         while not var_dict['selected']:
             ans = randrange(3)
