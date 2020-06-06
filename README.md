@@ -1,6 +1,9 @@
 # NameGame
 A game to teach my daughter the names of her familiy members and their relationship to her. Will use random number generation for family members, text to speech to interact with her, and speech recognition for her to interact with it.
 
+# Install Requirements
+`sudo apt-get install swig python3-dev libpulse-dev libasound2-dev portaudio190dev python-pyaudio python3-pyaudi`
+
 ## Main Directory
 ### classes.py
 - File contains all the classes that will be used in the games. Currently only the button class is created
